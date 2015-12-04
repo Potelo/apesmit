@@ -41,6 +41,12 @@ Now we write our sitemap and then close the file:
 sm.write(out)
 out.close()
 ```
+Or we can write a Sitemap index file:
+```
+sm.write(out, 'sitemapindex')
+out.close()
+```
+
 And that’s the content of our shiny new sitemap:
 ```
 <?xml version='1.0' encoding='UTF-8'?>
