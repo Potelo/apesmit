@@ -1,4 +1,8 @@
+# ApeSmit
+
 ## What is ApeSmit?
+Based on http://www.florian-diesch.de/software/apesmit/.
+
 ApeSmit is a very simple Python module to create XML sitemaps as defined at http://www.sitemaps.org. ApeSmit doesn’t contain any web spider or something like that, it just writes the data you provide to a file using the proper syntax.
 
 “apesmit” is an anagram of “sitemap”
