@@ -128,7 +128,7 @@ class Sitemap(object):
             priority = self.priority
         self.urls.append(Url(loc, lastmod, changefreq, priority, escape))
 
-    def write(self, out):
+    def write(self, out, type='url'):
         """
         Write sitemap to ``out``
 
@@ -145,6 +145,17 @@ class Sitemap(object):
                 return
         else:
             output = out
+
+        if type == 'url':
+            self.write_url(output)
+        elif type == 'sitemapindex':
+            self.write_index(output)
+
+        if output is not out:
+            output.close()
+
+    def write_url(self, output):
+
         output.write("<?xml version='1.0' encoding='UTF-8'?>\n"
                      '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n'
                      '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9\n'
@@ -166,5 +177,22 @@ class Sitemap(object):
                                         changefreq.decode('utf-8'),
                                         priority.decode('utf-8')))
         output.write('</urlset>\n')
-        if output is not out:
-            output.close()
+
+        return output
+
+    def write_index(self, output):
+
+        output.write('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+        for url in self.urls:
+            lastmod = ''
+            if url.lastmod is not None:
+                lastmod = '  <lastmod>%s</lastmod>\n' % url.lastmod
+
+            output.write(" <sitemap>\n"
+                         "  <loc>%s</loc>\n%s"
+                         " </sitemap>\n" % (url.loc.decode('utf-8'),
+                                            lastmod.decode('utf-8')))
+        output.write('</sitemapindex>\n')
+
+        return output
