@@ -141,7 +141,7 @@ class Sitemap(object):
             try:
                 output=codecs.open(out, 'w', 'utf-8')
             except Exception, e:
-                print "Can't open file '%s': %s"%(path, str(e))
+                print "Can't open file: %s"%(str(e),)
                 return
         else:
             output=out
